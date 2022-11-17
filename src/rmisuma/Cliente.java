@@ -6,13 +6,22 @@
 
 package rmisuma;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -26,22 +35,53 @@ public class Cliente {
 		// Debe reemplazarse "localhost" por el nombre o ip donde
 		// esté corriendo "rmiregistry".
 		// Naming.lookup() obtiene el objeto remoto
-            Registry reg= LocateRegistry.getRegistry("192.168.2.100",1099);
-            InterfazRemota i=(InterfazRemota)reg.lookup("suma");
+                
+            String ip = JOptionPane.showInputDialog("ingrese ip");
+            
+            JFrame frame = new JFrame("server");      
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
+            frame.setSize(480, 360); 
+            
+            Registry reg= LocateRegistry.getRegistry(ip,1099);
+            final InterfazRemota i=(InterfazRemota)reg.lookup("trans-formar");
+            
+            
+            JPanel panel=new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            JLabel xLabel = new JLabel("x : ");
+            final JTextArea xText = new JTextArea(1, 20);
+            xText.setLineWrap(true);
+            xText.setWrapStyleWord(true);
+            JLabel yLabel = new JLabel("y : ");
+            final JTextArea yText = new JTextArea(1, 20);
+            yText.setLineWrap(true);
+            yText.setWrapStyleWord(true);
+            
             // Se realiza la suma remota.
-            while(true){
-                int x = Integer.parseInt(JOptionPane.showInputDialog("ingresa numero 1"));
-                int y = Integer.parseInt(JOptionPane.showInputDialog("ingresa numero 2"));
+            JButton button=new JButton("lol");
+            button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int x = Integer.parseInt(xText.getText());
+                int y = Integer.parseInt(yText.getText());
 
-                JOptionPane.showMessageDialog(null, i.suma(x,y));
-                JOptionPane.showMessageDialog(null, i.resta(x,y));
-                JOptionPane.showMessageDialog(null, i.multiplicacion(x,y));
-                JOptionPane.showMessageDialog(null, i.divicion(x,y));
-            }
-        }
-        catch (Exception e)
-        {
-        }
+                try{
+                    JOptionPane.showMessageDialog(null, i.suma(x,y));
+                    JOptionPane.showMessageDialog(null, i.resta(x,y));
+                    JOptionPane.showMessageDialog(null, i.multiplicacion(x,y));
+                    JOptionPane.showMessageDialog(null, i.divicion(x,y));
+                }catch(Exception ex){}
+                }});
+            
+            panel.add(xLabel);
+            panel.add(xText);
+            panel.add(yLabel);
+            panel.add(yText);
+            panel.add(button);
+            
+            frame.getContentPane().add(BorderLayout.CENTER, panel);
+            frame.setVisible(true);
+        }catch (Exception e){}
     }
     
     

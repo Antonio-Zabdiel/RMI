@@ -38,11 +38,11 @@ public class Servidor {
             
             Registry reg=LocateRegistry.createRegistry(1099);
             Objetoremoto lp=new Objetoremoto();
-            reg.rebind("suma",lp);
+            reg.rebind("trans-formar",lp);
             System.out.println("Servidor escuchando");
                        
             frame.getContentPane().add(BorderLayout.NORTH, panel);
-            frame.setVisible(true); 
+            frame.setVisible(true);
         }
         catch (Exception e)
         {
