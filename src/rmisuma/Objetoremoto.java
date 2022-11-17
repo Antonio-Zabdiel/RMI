@@ -48,4 +48,36 @@ public class Objetoremoto extends UnicastRemoteObject implements InterfazRemota{
 	    System.out.println ("divicion " + a + " / " + b +"...");
         return a/b;
     }
+    
+    public double CtoK(double c){
+        double k = c + 273.15;
+        return k;
+    }
+    public double FtoK(double f){
+        double k = f - 32;
+        k = k * 5/9;
+        k += 273.15;
+        return k;
+    }
+    public double RtoK(double r){
+        double k = r * 5/9;
+        return k;
+    }
+    public double KtoC(double k){
+        double c = k - 273.15;
+        return c;
+    }
+    public double KtoF(double k){
+        double f = k - 273.15;
+        f = k * 9/5;
+        f += 32;
+        return f;
+    }
+    public double KtoR(double k){
+        double r = k * 9/5;
+        return r;
+    }
+    public double KtoK(double k){
+        return k;
+    }
 }
