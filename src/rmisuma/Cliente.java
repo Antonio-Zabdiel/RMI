@@ -26,7 +26,7 @@ public class Cliente {
 		// Debe reemplazarse "localhost" por el nombre o ip donde
 		// esté corriendo "rmiregistry".
 		// Naming.lookup() obtiene el objeto remoto
-            Registry reg= LocateRegistry.getRegistry("192.168.21.21",1099);
+            Registry reg= LocateRegistry.getRegistry("192.168.2.100",1099);
             InterfazRemota i=(InterfazRemota)reg.lookup("suma");
             // Se realiza la suma remota.
             while(true){
