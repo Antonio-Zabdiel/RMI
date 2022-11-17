@@ -69,7 +69,7 @@ public class Objetoremoto extends UnicastRemoteObject implements InterfazRemota{
     }
     public double KtoF(double k){
         double f = k - 273.15;
-        f = k * 9/5;
+        f = f * 9/5;
         f += 32;
         return f;
     }
